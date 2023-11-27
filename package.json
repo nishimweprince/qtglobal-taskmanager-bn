@@ -1,0 +1,28 @@
+{
+  "name": "task_mgt_bn",
+  "version": "1.0.0",
+  "description": "QT Global Software Challenge",
+  "main": "src/index.js",
+  "scripts": {
+    "babel": "babel src/index.js -d dist --presets @babel/preset-modules",
+    "migrate": "npx sequelize-cli db:migrate",
+    "dev": "npm run babel && nodemon --exec babel-node src/index.js",
+    "test": "npm test"
+  },
+  "author": "Nishimwe Prince",
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.33.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "sequelize": "^6.35.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "nodemon": "^3.0.1",
+    "sequelize-cli": "^6.6.2"
+  }
+}
