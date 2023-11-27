@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
     phone: {
       type: DataTypes.STRING,
       allowNull: true,
-      unique: true,
     },
     address: {
       type: DataTypes.STRING,
@@ -42,6 +41,16 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
     tableName: 'users',
+    defaultScope: {
+      attributes: {
+        exclude: ['password']
+      }
+    },
+    scopes: {
+      withPassword: {
+        attributes: { include: ['password'] },
+      },
+    },
   });
   return user;
 };
