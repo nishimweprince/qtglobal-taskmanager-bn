@@ -20,7 +20,10 @@ router.patch('/', isAuthenticated, UserController.updateUser);
 router.patch('/password', isAuthenticated, UserController.changePassword)
 
 // GET USER DETAILS
-router.get('/', isAuthenticated, UserController.getUserDetails);
+router.get('/:id', isAuthenticated, UserController.getUserDetails);
+
+//LIST USERS
+router.get('/', isAuthenticated, UserController.listUsers);
 
 // EXPORT ROUTER
 export default router;

@@ -199,6 +199,14 @@ class UserController {
         try {
             const { user: { id } } = req;
 
+            const { id: userId } = req.params;
+
+            if (id !== userId) {
+                return res.status(403).json({
+                    message: 'Forbidden'
+                })
+            }
+
             const userExists = await user.findOne({
                 where: { id }
             });
@@ -206,6 +214,22 @@ class UserController {
             return res.status(200).json({
                 message: 'Success',
                 data: userExists
+            })
+        } catch (error) {
+            return res.status(500).json({
+                message: error?.message
+            })
+        }
+    }
+
+    // LIST USERS
+    static async listUsers(req, res) {
+        try {
+            const usersList = await user.findAndCountAll();
+
+            return res.status(200).json({
+                message: 'Success',
+                data: usersList
             })
         } catch (error) {
             return res.status(500).json({
