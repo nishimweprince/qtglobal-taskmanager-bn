@@ -6,12 +6,16 @@
   "scripts": {
     "babel": "babel src/index.js -d dist --presets @babel/preset-modules",
     "migrate": "npx sequelize-cli db:migrate",
-    "dev": "npm run babel && nodemon --exec babel-node src/index.js",
+    "dev": "npm run migrate && nodemon --exec babel-node src/index.js",
     "test": "npm test"
   },
   "author": "Nishimwe Prince",
   "license": "ISC",
   "dependencies": {
+    "@babel/node": "^7.23.9",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/plugin-proposal-unicode-property-regex": "^7.18.6",
     "@google-cloud/storage": "^7.6.0",
     "bcrypt": "^5.1.1",
     "core-js": "^3.33.3",
@@ -21,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.4",
     "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.3",
     "sequelize": "^6.35.1"
   },
   "devDependencies": {

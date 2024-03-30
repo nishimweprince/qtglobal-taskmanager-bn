@@ -17,7 +17,7 @@ class TaskController {
         // INITIALIZE TRANSACTION
         const t = await sequelize.transaction();
         try {
-            const { title, description, start_date, end_date, priority, task_assignees, task_projects, draft } = req.body;
+            const { title, description, start_date, end_date, priority, task_assignees, task_projects, draft, status } = req.body;
             const { user: { id } } = req;
 
 
@@ -64,6 +64,7 @@ class TaskController {
                 end_date: end_date ? moment(end_date).format('YYYY-MM-DDTHH:MM:SSZ') : moment().add(1, 'months').format('YYYY-MM-DDTHH:MM:SSZ'),
                 priority,
                 user_id: id,
+                status,
                 draft
             }, { transaction: t });
 
@@ -121,7 +122,7 @@ class TaskController {
     // LIST ALL TASKS
     static async listAllTasks(req, res) {
         try {
-            const { page, size } = req.query;
+            const { page, size, assignee_id } = req.query;
 
             const { limit, offset } = getPagination(page, size);
 
@@ -132,10 +133,19 @@ class TaskController {
                         as: 'user',
                         attributes: ['id', 'name', 'email', 'phone']
                     },
+                    {
+                        model: user,
+                        as: 'assignees',
+                        attributes: ['id', 'name', 'phone']
+                    }
                 ],
                 limit,
                 offset
             });
+
+            if (assignee_id) {
+                tasksList?.rows?.filter(task => task?.assignees?.some(assignee => assignee?.id === assignee_id))
+            }
 
             return res.status(200).json({
                 message: 'Success',
@@ -164,6 +174,11 @@ class TaskController {
                         model: user,
                         as: 'user',
                         attributes: ['id', 'name', 'email', 'phone', 'address']
+                    },
+                    {
+                        model: user,
+                        as: 'assignees',
+                        attributes: ['id', 'name', 'phone']
                     }
                 ],
                 limit,
@@ -215,6 +230,43 @@ class TaskController {
             return res.status(200).json({
                 message: 'Success',
                 data: taskDetails
+            })
+        } catch (error) {
+            return res.status(500).json({
+                message: error?.message
+            })
+        }
+    }
+
+    // UPDATE TASK
+    static async updateTask(req, res) {
+        try {
+            const { title, status, description, start_date, end_date, priority } = req.body;
+
+            // GET TASK ID
+            const { id } = req.params;
+
+            // CHECK IF TASK EXISTS
+            const taskExists = await task.findOne({ where: { id } });
+
+            if (!taskExists) {
+                return res.status(404).json({ message: 'Task not found' });
+            }
+
+            // UPDATE TASK
+            const updateTask = await taskExists.update({
+                title: title || taskExists.title,
+                status: status || taskExists.status,
+                description: description || taskExists.description,
+                start_date: start_date || taskExists?.start_date,
+                end_date: end_date || taskExists?.end_date,
+                priority: priority || taskExists?.priority
+            }, { where: { id } });
+
+            // RETURN RESPONSE
+            return res.status(200).json({
+                message: 'Success',
+                data: updateTask
             })
         } catch (error) {
             return res.status(500).json({

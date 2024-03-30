@@ -37,6 +37,12 @@ module.exports = {
           key: 'id'
         }
       },
+      status: {
+        type: Sequelize.ENUM,
+        allowNull: false,
+        values: ['pending', 'in_progress', 'ready'],
+        defaultValue: 'pending',
+      },
       draft: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

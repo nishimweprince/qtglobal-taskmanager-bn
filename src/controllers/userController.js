@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import db from '../../models/index.js';
-import { validateEmail } from '../helpers/Validation.js';
-import { comparePassword, hashPassword } from '../helpers/Password.js';
+import { validateEmail } from '../helpers/validation.js';
+import { comparePassword, generateRandomString, hashPassword } from '../helpers/password.js';
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -20,7 +20,9 @@ class UserController {
     // CREATE USER
     static async createUser(req, res) {
         try {
-            const { name, email, password, phone = '', address = '' } = req.body;
+            const { name, email, password: userPassword, phone = '', address = '' } = req.body;
+
+            let password = userPassword || generateRandomString(8);
 
             if (!validateEmail(email)) {
                 return res.status(400).json({
@@ -64,6 +66,7 @@ class UserController {
                 }
             })
         } catch (error) {
+            console.log(error)
             return res.status(500).json({
                 message: error?.message
             })
