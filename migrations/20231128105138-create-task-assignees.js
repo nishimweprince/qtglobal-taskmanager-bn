@@ -15,7 +15,8 @@ module.exports = {
         references: {
           model: 'users',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
       },
       task_id: {
         type: Sequelize.UUID,
@@ -23,7 +24,8 @@ module.exports = {
         references: {
           model: 'tasks',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
