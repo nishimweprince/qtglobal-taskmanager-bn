@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       task_assignee.belongsTo(models.user, {
         foreignKey: 'user_id',
-        as: 'user'
+        as: 'user',
+        onDelete: 'CASCADE',
       });
     }
   }

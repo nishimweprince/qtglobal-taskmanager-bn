@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       project.belongsToMany(models.task, {
         as: 'tasks',
         through: 'project_tasks',
-        foreignKey: 'project_id'
+        foreignKey: 'project_id',
+        onDelete: 'CASCADE',
       });
       project.belongsTo(models.user, {
         foreignKey: 'user_id',

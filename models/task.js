@@ -12,21 +12,25 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       task.belongsTo(models.user, {
         foreignKey: 'user_id',
-        as: 'user'
+        as: 'user',
+        onDelete: 'CASCADE',
       });
       task.belongsToMany(models.project, {
         as: 'projects',
         through: 'project_tasks',
-        foreignKey: 'task_id'
+        foreignKey: 'task_id',
+        onDelete: 'CASCADE',
       });
       task.hasMany(models.task_file, {
         foreignKey: 'task_id',
-        as: 'files'
+        as: 'files',
+        onDelete: 'CASCADE',
       })
       task.belongsToMany(models.user, {
         as: 'assignees',
         through: 'task_assignees',
-        foreignKey: 'task_id'
+        foreignKey: 'task_id',
+        onDelete: 'CASCADE',
       })
     }
   }

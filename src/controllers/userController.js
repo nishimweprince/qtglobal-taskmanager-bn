@@ -66,7 +66,6 @@ class UserController {
                 }
             })
         } catch (error) {
-            console.log(error)
             return res.status(500).json({
                 message: error?.message
             })
@@ -233,6 +232,38 @@ class UserController {
             return res.status(200).json({
                 message: 'Success',
                 data: usersList
+            })
+        } catch (error) {
+            return res.status(500).json({
+                message: error?.message
+            })
+        }
+    }
+
+    // DELETE USER
+    static async deleteUser(req, res) {
+        try {
+            const { user: { id } } = req;
+
+            const { id: userId } = req.params;
+
+
+            const userExists = await user.findOne({
+                where: { id: userId }
+            });
+
+            if (!userExists) {
+                return res.status(404).json({
+                    message: 'User not found'
+                })
+            }
+
+            await user.destroy({
+                where: { id }
+            });
+
+            return res.status(204).json({
+                message: 'Success'
             })
         } catch (error) {
             return res.status(500).json({

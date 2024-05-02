@@ -4,10 +4,10 @@
   "description": "QT Global Software Challenge",
   "main": "src/index.js",
   "scripts": {
-    "babel": "babel src/index.js -d dist --presets @babel/preset-modules",
+    "babel": "npx babel src/ -d build --presets @babel/preset-modules",
     "migrate": "npx sequelize-cli db:migrate",
     "dev": "npm run migrate && nodemon --exec babel-node src/index.js",
-    "test": "npm test"
+    "start": "npm run babel && node build/index.js"
   },
   "author": "Nishimwe Prince",
   "license": "ISC",

@@ -21,8 +21,6 @@ class TaskController {
             const { user: { id } } = req;
 
 
-            console.log(req.files)
-
             // INITIALIZE REUSABLE VARIABLES
             let uploadedFiles = [], projectTasks = [], taskAssignees = [];
 
@@ -267,6 +265,31 @@ class TaskController {
             return res.status(200).json({
                 message: 'Success',
                 data: updateTask
+            })
+        } catch (error) {
+            return res.status(500).json({
+                message: error?.message
+            })
+        }
+    }
+
+    // DELETE TASK
+    static async deleteTask(req, res) {
+        try {
+            const { id } = req.params;
+
+            // CHECK IF TASK EXISTS
+            const taskExists = await task.findOne({ where: { id } });
+
+            if (!taskExists) {
+                return res.status(404).json({ message: 'Task not found' });
+            }
+
+            // DELETE TASK
+            await task.destroy({ where: { id } });
+
+            return res.status(204).json({
+                message: 'Task deleted successfully'
             })
         } catch (error) {
             return res.status(500).json({

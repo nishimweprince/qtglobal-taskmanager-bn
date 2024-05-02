@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/97dc6245-eda6-475e-815b-d4864170a11a/resourceGroups/basis/providers/Microsoft.Web/sites/taskmanagerservice",
+    "appService.deploySubpath": "."
+}

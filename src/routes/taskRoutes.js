@@ -16,6 +16,7 @@ router.get('/all', isAuthenticated, TaskController.listAllTasks);
 router.get('/', isAuthenticated, TaskController.listUserTasks);
 router.get('/:id', isAuthenticated, TaskController.getTaskDetails);
 router.patch('/:id', isAuthenticated, TaskController.updateTask);
+router.delete('/:id', isAuthenticated, TaskController.deleteTask);
 
 // EXPORT ROUTER
 export default router;

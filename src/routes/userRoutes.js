@@ -25,5 +25,8 @@ router.get('/:id', isAuthenticated, UserController.getUserDetails);
 //LIST USERS
 router.get('/', isAuthenticated, UserController.listUsers);
 
+// DELETE USER
+router.delete('/:id', isAuthenticated, UserController.deleteUser);
+
 // EXPORT ROUTER
 export default router;

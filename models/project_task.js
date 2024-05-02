@@ -12,11 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       project_task.belongsTo(models.task, {
         foreignKey: 'task_id',
-        as: 'task'
+        as: 'task',
+        onDelete: 'CASCADE',
       });
       project_task.belongsTo(models.project, {
         foreignKey: 'project_id',
-        as: 'project'
+        as: 'project',
+        onDelete: 'CASCADE',
       });
     }
   }
