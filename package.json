@@ -4,18 +4,14 @@
   "description": "QT Global Software Challenge",
   "main": "src/index.js",
   "scripts": {
-    "babel": "npx babel src/ -d build --presets @babel/preset-modules",
     "migrate": "npx sequelize-cli db:migrate",
     "dev": "npm run migrate && nodemon --exec babel-node src/index.js",
-    "start": "npm run babel && node build/index.js"
+    "build": "npm i && npx babel src -d build --presets @babel/preset-env",
+    "start": "npm run build && node build/index.js"
   },
   "author": "Nishimwe Prince",
   "license": "ISC",
   "dependencies": {
-    "@babel/node": "^7.23.9",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-    "@babel/plugin-proposal-unicode-property-regex": "^7.18.6",
     "@google-cloud/storage": "^7.6.0",
     "bcrypt": "^5.1.1",
     "core-js": "^3.33.3",
@@ -29,9 +25,12 @@
     "sequelize": "^6.35.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.4",
-    "@babel/core": "^7.23.3",
-    "@babel/preset-env": "^7.23.3",
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/node": "^7.23.9",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-object-rest-spread": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
     "nodemon": "^3.0.1",
     "sequelize-cli": "^6.6.2"
   }
