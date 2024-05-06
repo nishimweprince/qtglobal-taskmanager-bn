@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import db from '../../models/index.js'
-import { getPagination, getPagingData } from '../helpers/Pagination.js';
+import { getPagination, getPagingData } from '../helpers/pagination.js';
 
 // CONFIGURE DOTENV
 dotenv.config();

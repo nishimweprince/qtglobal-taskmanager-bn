@@ -9,7 +9,7 @@ import router from './routes/router.js';
 dotenv.config();
 
 // LOAD ENVIRONMENT VARIABLES
-const { PORT, DB_NAME } = process.env;
+const { PORT = 3000, DB_NAME } = process.env;
 
 // CREATE EXPRESS APP
 const app = express();

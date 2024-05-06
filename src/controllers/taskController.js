@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import moment from 'moment'
 import db, { sequelize } from '../../models/index.js'
 import uploadDocument, { getFileExtension } from '../helpers/uploadDocument.js';
-import { getPagination, getPagingData } from '../helpers/Pagination.js';
+import { getPagination, getPagingData } from '../helpers/pagination.js';
 
 // CONFIGURE DOTENV
 dotenv.config();
